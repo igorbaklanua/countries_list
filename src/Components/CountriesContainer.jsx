@@ -2,21 +2,32 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {getCountries} from "../REDUX/reducers/countriesReducer";
 import Countries from "./Countries";
+import Pagination from "./Pagination";
 
 
 const CountriesContainer = React.memo(() => {
-
+    const [sortedCountries, setSortedCountries] = useState([])
+    const [curentPage, setCurrentPage] = useState(1)
     const dispatch = useDispatch();
+
     useEffect(() => {
         dispatch(getCountries());
     }, [dispatch]);
-    const countries = useSelector(state => state.countriesList.countries);
-    console.log(countries)
-    const [sortedCountries, setSortedCountries] = useState([])
-    useEffect(() => {
-        setSortedCountries(countries);
-    }, [countries]);
 
+    const countries = useSelector(state => state.countriesList.countries);
+    const isLoading = useSelector(state => state.countriesList.isLoading)
+
+    useEffect(() => {
+        setSortedCountries(countries)
+    }, [countries])
+
+    const countriesPerPage = 8
+    const lastCountryIndex = curentPage * countriesPerPage
+    const firstCountryIndex = lastCountryIndex - countriesPerPage
+    const currentCountry = sortedCountries.slice(firstCountryIndex, lastCountryIndex)
+    const paginate = pageNumber => setCurrentPage((pageNumber))
+    // const nextPage = () => setCurrentPage(prev => prev + 1)
+    // const prevPage = () => setCurrentPage(prev => prev - 1)
     const onSorted = (sortType) => {
 
         switch (sortType) {
@@ -43,6 +54,16 @@ const CountriesContainer = React.memo(() => {
 
     return (
 
-        <Countries countries={sortedCountries} onSorted={onSorted}/>);
+        <div className='container mt-5'>
+            <Countries countries={currentCountry} onSorted={onSorted} isLoading={isLoading}/>
+            <Pagination
+                countriesPerPage={countriesPerPage}
+                totalCountries={sortedCountries.length}
+                paginate={paginate}
+                currentPage={curentPage}/>
+            {/*<button className='btn btn-primary' onClick={prevPage}>Prev</button>*/}
+            {/*<button className='btn btn-primary ms-3' onClick={nextPage}>Next</button>*/}
+        </div>
+    );
 });
 export default CountriesContainer;
