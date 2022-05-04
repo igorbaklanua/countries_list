@@ -1,9 +1,21 @@
-.card{
-    width: 100%;
+
+.cards {
+    background-color: #80EA69;
+}
+
+.card {
+
     height: fit-content;
-    background-color: rgba(200, 200, 200, 0.466);
+    background-color: #59EA3A;
     color: black;
-    margin: 10px auto;
+    margin-bottom: 10px;
     padding: 10px;
-    border: 1px solid rgb(100, 100, 100);
+
+}
+
+.card p {
+    padding: 5px 5px 5px 10px;
+    width: 100%;
+    font-weight: 400;
+    text-align: left;
 }
