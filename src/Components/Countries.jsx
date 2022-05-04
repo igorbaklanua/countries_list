@@ -10,14 +10,11 @@ const Countries = ({countries, onSorted}) => {
                 <button onClick={()=>onSorted('allCountries')}>All countries</button>
                 <button onClick={()=>onSorted('smallerThanLithuania')}>Smaller than Lithuania</button>
                 <button onClick={()=>onSorted("Oceania")}>Oceania</button>
-            </div>
-            <button>
-                <span onClick={()=>onSorted('A_Z')}>Sort A-Z</span>
-            </button>
-            <button>
-                <span onClick={()=>onSorted('Z_A')}>Sort Z-A</span>
+                <button type={'radio'} onClick={()=>onSorted('A_Z')}>A-Z</button>
+                <button type={'radio'} onClick={()=>onSorted('Z_A')}>Z-A</button>
 
-            </button>
+            </div>
+
         </div>
 
         <div className={styles.cards}>
