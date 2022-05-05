@@ -1,10 +1,9 @@
 import {countriesAPI} from "../../API/api";
 
 const SET_COUNTRIES = 'SET_COUNTRIES'
-const TOGGLE_IS_LOADING='TOGGLE_IS_LOADING'
+const TOGGLE_IS_LOADING = 'TOGGLE_IS_LOADING'
 const initialState = {
-    countries: [],
-    isLoading:false
+    countries: [], isLoading: false
 };
 
 export const countriesReducer = (state = initialState, action) => {
@@ -17,8 +16,7 @@ export const countriesReducer = (state = initialState, action) => {
         }
         case TOGGLE_IS_LOADING: {
             return {
-                ...state,
-                isLoading: action.payload.isLoading,
+                ...state, isLoading: action.payload.isLoading,
             };
         }
 
@@ -31,9 +29,8 @@ const setCountriesAC = countries => ({
         countries,
     },
 });
- const toggleIsLoadingAC = isLoading => ({
-    type: TOGGLE_IS_LOADING,
-    payload: {
+const toggleIsLoadingAC = isLoading => ({
+    type: TOGGLE_IS_LOADING, payload: {
         isLoading,
     },
 });

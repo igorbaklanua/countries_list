@@ -7,7 +7,7 @@ import Pagination from "./Pagination";
 
 const CountriesContainer = React.memo(() => {
     const [sortedCountries, setSortedCountries] = useState([])
-    const [curentPage, setCurrentPage] = useState(1)
+    const [currentPage, setCurrentPage] = useState(1)
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -21,37 +21,31 @@ const CountriesContainer = React.memo(() => {
         setSortedCountries(countries)
     }, [countries])
 
-    const countriesPerPage = 8
-    const lastCountryIndex = curentPage * countriesPerPage
+    const countriesPerPage = 7
+    const lastCountryIndex = currentPage * countriesPerPage
     const firstCountryIndex = lastCountryIndex - countriesPerPage
     const currentCountry = sortedCountries.slice(firstCountryIndex, lastCountryIndex)
     const paginate = pageNumber => setCurrentPage((pageNumber))
-    // const nextPage = () => setCurrentPage(prev => prev + 1)
-    // const prevPage = () => setCurrentPage(prev => prev - 1)
     const onSorted = (sortType) => {
 
         switch (sortType) {
-            case 'allCountries':
-                return setSortedCountries(countries);
-                break;
-            case 'smallerThanLithuania':
-                return setSortedCountries(countries.filter(item => item.area < 65300));
-                break;
-            case 'Oceania':
-                return setSortedCountries(countries.filter(item => item.region === 'Oceania'));
-                break;
             case 'A_Z':
-                return setSortedCountries((countries.slice().sort((a, b) => (a.name > b.name ? 1 : -1))));
-                break;
+                return (setCurrentPage(1), setSortedCountries(countries.slice().sort((a, b) => (a.name > b.name ? 1 : -1))))
+
             case 'Z_A':
-                return setSortedCountries(countries.slice().sort((a, b) => (b.name > a.name ? 1 : -1)));
-                break;
+                return (setCurrentPage(1), setSortedCountries(countries.slice().sort((a, b) => (b.name > a.name ? 1 : -1))))
+
+            case 'smallerThanLithuania':
+                return (setCurrentPage(1), setSortedCountries(countries.filter(item => item.area < 65300)))
+
+            case 'Oceania':
+                return (setCurrentPage(1), setSortedCountries(countries.filter(item => item.region === 'Oceania')))
+
             default:
                 return setSortedCountries(countries);
         }
+
     }
-
-
     return (
 
         <div className='container mt-5'>
@@ -60,10 +54,8 @@ const CountriesContainer = React.memo(() => {
                 countriesPerPage={countriesPerPage}
                 totalCountries={sortedCountries.length}
                 paginate={paginate}
-                currentPage={curentPage}/>
-            {/*<button className='btn btn-primary' onClick={prevPage}>Prev</button>*/}
-            {/*<button className='btn btn-primary ms-3' onClick={nextPage}>Next</button>*/}
-        </div>
-    );
+                currentPage={currentPage}/>
+        </div>);
 });
+
 export default CountriesContainer;
