@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getCountries} from "../REDUX/reducers/countriesReducer";
 import Countries from "./Countries";
 import Pagination from "./Pagination";
+import Header from "./Header";
 
 
 const CountriesContainer = React.memo(() => {
@@ -46,9 +47,12 @@ const CountriesContainer = React.memo(() => {
         }
 
     }
+    if (isLoading) {
+        return <h2>LOADING...</h2>
+    }
     return (
-
         <div className='container mt-5'>
+            <Header onSorted={onSorted}/>
             <Countries countries={currentCountry} onSorted={onSorted} isLoading={isLoading}/>
             <Pagination
                 countriesPerPage={countriesPerPage}
