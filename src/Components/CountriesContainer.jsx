@@ -24,30 +24,26 @@ const CountriesContainer = () => {
     setCountriesToRender(sortedCountriesList);
   }, [sortedCountriesList]);
   const onSorted = sortType => {
+    let sortDispatch;
     switch (sortType) {
       case 'A_Z':
-        return (
-          setCurrentPage(1), dispatch(setSortTypeAtoZ()), setCountriesToRender(sortedCountriesList)
-        );
+        sortDispatch = dispatch(setSortTypeAtoZ());
+        break;
       case 'Z_A':
-        return (
-          setCurrentPage(1), dispatch(setSortTypeZtoA()), setCountriesToRender(sortedCountriesList)
-        );
+        sortDispatch = dispatch(setSortTypeZtoA());
+        break;
+
       case 'smallerThanLithuania':
-        return (
-          setCurrentPage(1),
-          dispatch(setSortTypeSmalerThanLituen()),
-          setCountriesToRender(sortedCountriesList)
-        );
+        sortDispatch = dispatch(setSortTypeSmalerThanLituen());
+        break;
+
       case 'Oceania':
-        return (
-          setCurrentPage(1),
-          dispatch(setSortTypeOceania()),
-          setCountriesToRender(sortedCountriesList)
-        );
+        sortDispatch = dispatch(setSortTypeOceania());
+        break;
       default:
-        return setCountriesToRender(sortedCountriesList);
+        sortDispatch = dispatch(getCountries());
     }
+    return sortDispatch, setCurrentPage(1), setCountriesToRender(sortedCountriesList);
   };
   const countriesPerPage = 7;
   const lastCountryIndex = currentPage * countriesPerPage;
